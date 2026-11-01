@@ -208,7 +208,7 @@ function home(){
     <li>まず上で<b>ランク</b>を選びます。初級は4択、中級は入力（ヒントあり）、上級はヒントなしの入力で、時計は型番まで答えます。</li>
     <li>ステージごとに<b>「挑戦」</b>で解きます。8割以上正解でクリア。クリア記録はランクごとに残ります。</li>
     <li><b>「一問一答」</b>は答えを思い浮かべてからめくる暗記用です。まちがえた問題は<b>「苦手を復習」</b>にたまります。</li>
-    <li><b>「図鑑」</b>で写真を見比べ、<b>「用語集」</b>で型番・年代・法律用語などを種類ごとに調べられます。</li>
+    <li><b>「図鑑」</b>で写真を見比べ、<b>「用語集」</b>で型番・年代・ブランドなどを種類ごとに調べられます。</li>
     <li>入力で表記ゆれ（例：ヴィトン／ビトン）は正解扱いになります。正しいのに不正解になったら「正解にする」を押してください。</li></ol></details>`;
   const next = STAGES.find(st => !cleared(st));
   if (next) h += `<section class="next"><div><small>${done?"次はここから":"まずはここから"}</small><b>${esc(next.cat.title)}｜${esc(next.title)}</b><span class="muted">${next.qs.length}問・${RANKS[S.rank].name}</span></div><button class="btn" data-quiz="${next.id}">はじめる</button></section>`;
@@ -384,7 +384,6 @@ function buildGlossary(){
   G["ライン・素材"] = [...lines.values()].map(q => ({ t:q.name, d:q.brand + "のライン（素材・柄）", img:q.img, q }));
   // ロゴ
   G["ブランドロゴ"] = ALL.filter(q => q.cat === "logo").map(q => ({ t:q.name, d:q.note || "ブランドロゴの問題で出題", img:q.img, q }));
-  G["法律用語"] = window.KQ_GLOSSARY["法律用語"];
   // その他の商材はグループごと
   const others = {};
   ALL.filter(q => q.cat === "other").forEach(q => { (others[q.g] = others[q.g] || []).push(q); });
