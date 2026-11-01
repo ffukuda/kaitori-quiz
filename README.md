@@ -8,7 +8,7 @@ GitHub Pages で公開し、合言葉画面と検索よけ（noindex）を付け
 - `index.html` / `style.css` / `app.js`：アプリ本体（ビルド不要の静的ファイル）
 - `data.js`：問題データ（号の一覧・写真問題・法律問題・用語集）
 - `img/`：PDFから切り出した写真。名前は `<号>-s<問題番号>-<連番>.jpg`
-- `tools/crop_pdf.py`：PDFから写真を切り出すスクリプト
+- `tools/crop_pdf.py`：PDFから写真を切り出すスクリプト（PDF内の元画像を取り出して3倍に拡大・輪郭補正）
 
 ## ランク
 
