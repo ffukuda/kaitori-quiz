@@ -76,6 +76,8 @@ window.KQ_PHOTO_SETS.forEach(set => set.items.forEach((it, i) => {
   else q.g = opt.g || "その他";
   q.askBrand = !!brand && /ブランド|メーカー/.test(q.q) && set.cat !== "other";
   q.label = q.askBrand ? `${brand}　${name}` : name;
+  const cr = (window.KQ_CREDITS || {})[q.id];
+  if (cr) { q.img = `img/wiki/${q.id}.jpg`; q.credit = cr; }
   ALL.push(q);
 }));
 window.KQ_LAW.forEach(l => {
@@ -164,13 +166,18 @@ function factsHTML(q){
   if (q.ref) rows.push(["型番", q.ref]);
   return `<dl class="facts">${rows.map(r => `<dt>${esc(r[0])}</dt><dd>${esc(r[1])}</dd>`).join("")}</dl>`;
 }
+function creditHTML(q){
+  const c = q.credit; if (!c) return "";
+  const lic = c.licUrl ? `<a href="${esc(c.licUrl)}" target="_blank" rel="noopener">${esc(c.lic)}</a>` : esc(c.lic);
+  return `<div class="credit">写真：${c.by ? esc(c.by) + "・" : ""}${lic}${c.mod ? "・" + esc(c.mod) : ""}（<a href="${esc(c.url)}" target="_blank" rel="noopener">Wikimedia Commons</a>）</div>`;
+}
 function explainHTML(q){
-  return `${factsHTML(q)}${q.note ? `<div class="tip"><b>メモ</b>${esc(q.note)}</div>` : ""}<div class="src">${esc(srcText(q))}・${esc(q.stage.cat.title)}／${esc(q.stage.title)}</div>`;
+  return `${factsHTML(q)}${q.note ? `<div class="tip"><b>メモ</b>${esc(q.note)}</div>` : ""}<div class="src">${esc(srcText(q))}・${esc(q.stage.cat.title)}／${esc(q.stage.title)}</div>${creditHTML(q)}`;
 }
 function answerText(q){ return q.law ? q.name : (q.askBrand ? `${q.brand} ${q.name}` : q.name) + (q.ref && S.rank === "hard" ? `（型番 ${q.ref}）` : ""); }
 function lightbox(q){
   const lb = document.createElement("div"); lb.className = "lightbox";
-  lb.innerHTML = `<img src="${q.img}" alt=""><div class="cap">${esc(q.brand && q.cat!=="logo" ? q.brand+"　" : "")}<b>${esc(q.name)}</b>${q.ref?`<br>型番：${esc(q.ref)}`:""}<br><span style="font-size:12px">${esc(SRC[q.src])}・タップで閉じる</span></div>`;
+  lb.innerHTML = `<img src="${q.img}" alt=""><div class="cap">${esc(q.brand && q.cat!=="logo" ? q.brand+"　" : "")}<b>${esc(q.name)}</b>${q.ref?`<br>型番：${esc(q.ref)}`:""}<br><span style="font-size:12px">${esc(SRC[q.src])}・タップで閉じる</span>${creditHTML(q)}</div>`;
   lb.onclick = () => lb.remove(); document.body.appendChild(lb);
 }
 function photoOnly(q){
