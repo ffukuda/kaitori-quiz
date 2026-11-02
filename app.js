@@ -78,6 +78,8 @@ window.KQ_PHOTO_SETS.forEach(set => set.items.forEach((it, i) => {
   q.label = q.askBrand ? `${brand}　${name}` : name;
   const cr = (window.KQ_CREDITS || {})[q.id];
   if (cr) { q.img = `img/wiki/${q.id}.jpg`; q.credit = cr; }
+  // 元画像が小さくぼやけるルイ・ヴィトンの写真は、引き伸ばさず小さめに表示する
+  else if (brand === "ルイ・ヴィトン") q.small = true;
   ALL.push(q);
 }));
 window.KQ_LAW.forEach(l => {
@@ -156,7 +158,7 @@ function hintFor(q){
 }
 
 /* ================= 共通の部品 ================= */
-function photoHTML(q){ return q.img ? `<figure class="photo" data-zoom="${q.id}"><img src="${q.img}" alt="問題の写真" decoding="async"></figure>` : ""; }
+function photoHTML(q){ return q.img ? `<figure class="photo${q.small ? " small" : ""}" data-zoom="${q.id}"><img src="${q.img}" alt="問題の写真" decoding="async"></figure>` : ""; }
 function srcText(q){ return q.law ? (q.srcs.length ? "出典：" + q.srcs.map(s => SRC[s]).join("・") : "") : "出典：" + SRC[q.src] + "のテスト"; }
 function factsHTML(q){
   if (q.law) return "";
@@ -177,12 +179,12 @@ function explainHTML(q){
 function answerText(q){ return q.law ? q.name : (q.askBrand ? `${q.brand} ${q.name}` : q.name) + (q.ref && S.rank === "hard" ? `（型番 ${q.ref}）` : ""); }
 function lightbox(q){
   const lb = document.createElement("div"); lb.className = "lightbox";
-  lb.innerHTML = `<img src="${q.img}" alt=""><div class="cap">${esc(q.brand && q.cat!=="logo" ? q.brand+"　" : "")}<b>${esc(q.name)}</b>${q.ref?`<br>型番：${esc(q.ref)}`:""}<br><span style="font-size:12px">${esc(SRC[q.src])}・タップで閉じる</span>${creditHTML(q)}</div>`;
+  lb.innerHTML = `<img src="${q.img}" alt=""${q.small ? ' class="small"' : ""}><div class="cap">${esc(q.brand && q.cat!=="logo" ? q.brand+"　" : "")}<b>${esc(q.name)}</b>${q.ref?`<br>型番：${esc(q.ref)}`:""}<br><span style="font-size:12px">${esc(SRC[q.src])}・タップで閉じる</span>${creditHTML(q)}</div>`;
   lb.onclick = () => lb.remove(); document.body.appendChild(lb);
 }
 function photoOnly(q){
   const lb = document.createElement("div"); lb.className = "lightbox";
-  lb.innerHTML = `<img src="${q.img}" alt=""><div class="cap" style="font-size:12px">タップで閉じる</div>`;
+  lb.innerHTML = `<img src="${q.img}" alt=""${q.small ? ' class="small"' : ""}><div class="cap" style="font-size:12px">タップで閉じる</div>`;
   lb.onclick = () => lb.remove(); document.body.appendChild(lb);
 }
 let keyHandler = null;
