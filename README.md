@@ -8,6 +8,7 @@ GitHub Pages で公開し、合言葉画面と検索よけ（noindex）を付け
 - `index.html` / `style.css` / `app.js`：アプリ本体（ビルド不要の静的ファイル）
 - `data.js`：問題データ（号の一覧・写真問題・用語集）。法律問題は削除済み
 - `img/`：PDFから切り出した写真。名前は `<号>-s<問題番号>-<連番>.jpg`
+- `img/wiki/` と `credits.js`：Wikimedia Commons の写真に差し替えた問題（下の「Wikimediaの写真」）
 - `tools/crop_pdf.py`：PDFから写真を切り出すスクリプト（PDF内の元画像を取り出して3倍に拡大・輪郭補正）
 
 ## ランク
@@ -29,3 +30,14 @@ GitHub Pages で公開し、合言葉画面と検索よけ（noindex）を付け
 ## 写真の画質
 
 PDFの写真は小さいので、AI（Real-ESRGAN）で高画質化しています。手順は `tools/ai_upscale/README.md`。
+
+## Wikimediaの写真
+
+同じブランド・モデル（時計は型番まで）の写真が Wikimedia Commons にあった問題は、PDFの写真の代わりにその写真を使っています。
+
+- 写真は `img/wiki/<問題ID>.jpg`、出典（撮影者・ライセンス・ファイルページ）は `credits.js` に書く。`credits.js` に載っている問題だけが差し替わり、外せばPDFの写真に戻る
+- 解説と拡大表示に「写真：撮影者・ライセンス（Wikimedia Commons）」が出る。CC BY / CC BY-SA の写真は、この表示を消さないこと
+- 写真は縮小しただけ。モノグラムとエピはバッグの写真から柄の部分を切り抜いている（`mod` に記載）
+- モデルが一致するか目で確かめられたものだけを使う。型番付きの時計問題は型番が同じ写真だけ
+- Unsplash の写真も同じ仕組みで使える（`site: "Unsplash"`）。Unsplash は API キーが必要（無料、1時間50回まで）
+- Commons から取るときは原寸ではなくサムネイル（例：幅960px）のURLを使う（原寸はアクセス制限で取れないことがある）
