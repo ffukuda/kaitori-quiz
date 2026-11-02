@@ -169,7 +169,7 @@ function factsHTML(q){
 function creditHTML(q){
   const c = q.credit; if (!c) return "";
   const lic = c.licUrl ? `<a href="${esc(c.licUrl)}" target="_blank" rel="noopener">${esc(c.lic)}</a>` : esc(c.lic);
-  return `<div class="credit">写真：${c.by ? esc(c.by) + "・" : ""}${lic}${c.mod ? "・" + esc(c.mod) : ""}（<a href="${esc(c.url)}" target="_blank" rel="noopener">Wikimedia Commons</a>）</div>`;
+  return `<div class="credit">写真：${c.by ? esc(c.by) + "・" : ""}${lic}${c.mod ? "・" + esc(c.mod) : ""}（<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.site || "Wikimedia Commons")}</a>）</div>`;
 }
 function explainHTML(q){
   return `${factsHTML(q)}${q.note ? `<div class="tip"><b>メモ</b>${esc(q.note)}</div>` : ""}<div class="src">${esc(srcText(q))}・${esc(q.stage.cat.title)}／${esc(q.stage.title)}</div>${creditHTML(q)}`;

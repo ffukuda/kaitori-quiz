@@ -1,6 +1,6 @@
-/* Wikimedia Commons の写真に差し替えた問題と、その出典表示。
+/* Wikimedia Commons などの自由に使える写真に差し替えた問題と、その出典表示。
    キーは問題ID（<号>-s<問題番号>-<連番>）。写真は img/wiki/<問題ID>.jpg。
-   by=撮影者・作者、lic=ライセンス、url=Commonsのファイルページ、mod=加工内容。
+   by=撮影者・作者、lic=ライセンス、url=写真のページ、mod=加工内容や注意、site=出典サイト（省略時は Wikimedia Commons）。
    ここから外すとPDFの写真に戻る */
 window.KQ_CREDITS = {
   "v2026-01-s1-09": {"by": "O.Horbacz from Berlin, Germany", "lic": "CC BY 2.0", "url": "https://commons.wikimedia.org/wiki/File:Berlin_Louis_Vuitton_(6517140955).jpg", "licUrl": "https://creativecommons.org/licenses/by/2.0"},
@@ -55,5 +55,6 @@ window.KQ_CREDITS = {
   "v2026-03-s3-04": {"by": "", "lic": "Public domain", "url": "https://commons.wikimedia.org/wiki/File:Berluti_logo.svg"},
   "v2026-03-s3-05": {"by": "Puig", "lic": "Public domain", "url": "https://commons.wikimedia.org/wiki/File:Nina_Ricci_logo.svg"},
   "v2026-03-s3-07": {"by": "Kate Spade New York", "lic": "Public domain", "url": "https://commons.wikimedia.org/wiki/File:Kate_Spade_New_York_logo.svg"},
-  "v2026-03-s3-08": {"by": "Alfred Dunhill Ltd.", "lic": "Public domain", "url": "https://commons.wikimedia.org/wiki/File:Dunhill_logo.svg"}
+  "v2026-03-s3-08": {"by": "Alfred Dunhill Ltd.", "lic": "Public domain", "url": "https://commons.wikimedia.org/wiki/File:Dunhill_logo.svg"},
+  "v2026-03-s1-08": {"by": "Ibrahim guetar", "lic": "Unsplash License", "licUrl": "https://unsplash.com/license", "url": "https://unsplash.com/photos/a-louis-vuitton-handbag-rests-on-a-golden-stand-uBYHukpU4UE?utm_source=kaitori-quiz&utm_medium=referral", "mod": "PDFとはカラー違い", "site": "Unsplash"}
 };
